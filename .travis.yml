@@ -25,6 +25,7 @@ addons:
       - libportmidi-dev
       - portaudio19-dev
       - libcppunit-dev
+      - liblrdf0-dev
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
