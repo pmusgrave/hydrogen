@@ -32,4 +32,4 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install qt5-default libqt5xmlpatterns5-dev libarchive-dev libsndfile1-dev libasound2-dev libjack-jackd2-dev liblo-dev libpulse-dev libportmidi-dev portaudio19-dev libcppunit-dev liblrdf0-dev; fi
 
 script:
-  - mkdir build && cd build && cmake .. && make
+  - mkdir build && cd build && cmake -DWANT_LRDF=1 .. && make
