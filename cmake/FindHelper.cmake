@@ -25,19 +25,20 @@ macro(FIND_HELPER prefix pkg_name header lib)
         if(PKG_CONFIG_FOUND)
             MESSAGE(STATUS "PKG-CONFIG '${pkg_name}'")
             pkg_check_modules(${prefix} ${pkg_name})
-            SET(${prefix}_LIBRARIES "${${prefix}_LDFLAGS}")
         else()
             MESSAGE(STATUS "Checking for module '${pkg_name}'")
         endif()
-        if(NOT ${prefix}_FOUND)
+        if(NOT APPLE AND NOT ${prefix}_FOUND)
             MESSAGE(STATUS "STILL-NOT-FOUND '${pkg_name}'")
             # try find_path and find_library
             find_path(${prefix}_INCLUDE_DIRS
                 NAMES ${header}
+                HINTS ${${prefix}_INCLUDE_DIRS}
                 ENV ${prefix}_INCLUDE
             )
             find_library(${prefix}_LIBRARIES
                 NAMES ${lib}
+                HINTS ${${prefix}_LIBRARY_DIRS}
                 ENV ${prefix}_PATH
             )
             include(FindPackageHandleStandardArgs)
@@ -47,6 +48,4 @@ macro(FIND_HELPER prefix pkg_name header lib)
     MESSAGE(STATUS  " FOUND         ${${prefix}_FOUND}" )
     MESSAGE(STATUS  " INCLUDE_DIRS  ${${prefix}_INCLUDE_DIRS}" )
     MESSAGE(STATUS  " LIBRARIES     ${${prefix}_LIBRARIES}" )
-    #MESSAGE(STATUS  " LIBRARY_DIRS  ${${prefix}_LIBRARY_DIRS}" )
-    #MESSAGE(STATUS  " LDFLAGS       ${${prefix}_LDFLAGS}" )
 endmacro()
