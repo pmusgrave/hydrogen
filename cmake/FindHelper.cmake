@@ -33,12 +33,12 @@ macro(FIND_HELPER prefix pkg_name header lib)
             # try find_path and find_library
             find_path(${prefix}_INCLUDE_DIRS
                 NAMES ${header}
-                HINTS ${${prefix}_INCLUDE_DIRS}
+                HINTS ${${prefix}_INCLUDEDIR} ${${prefix}_INCLUDE_DIRS}
                 ENV ${prefix}_INCLUDE
             )
             find_library(${prefix}_LIBRARIES
                 NAMES ${lib}
-                HINTS ${${prefix}_LIBRARY_DIRS}
+                HINTS ${${prefix}_LIBDIR} ${${prefix}_LIBRARY_DIRS}
                 ENV ${prefix}_PATH
             )
             include(FindPackageHandleStandardArgs)
@@ -46,6 +46,9 @@ macro(FIND_HELPER prefix pkg_name header lib)
         endif()
     endif()
     MESSAGE(STATUS  " FOUND         ${${prefix}_FOUND}" )
-    MESSAGE(STATUS  " INCLUDE_DIRS  ${${prefix}_INCLUDE_DIRS}" )
-    MESSAGE(STATUS  " LIBRARIES     ${${prefix}_LIBRARIES}" )
+    MESSAGE(STATUS  " LIBRARIES         ${${prefix}_LIBRARIES}" )
+    MESSAGE(STATUS  " INCLUDE_DIRS      ${${prefix}_INCLUDE_DIRS}" )
+    MESSAGE(STATUS  " LIBRARIES_DIRS    ${${prefix}_LIBRARIES_DIRS}" )
+    MESSAGE(STATUS  " INCLUDEDIR        ${${prefix}_INCLUDEDIR}" )
+    MESSAGE(STATUS  " LIBDIR            ${${prefix}_LIBDIR}" )
 endmacro()
