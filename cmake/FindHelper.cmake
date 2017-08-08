@@ -28,7 +28,7 @@ macro(FIND_HELPER prefix pkg_name header lib)
         else()
             MESSAGE(STATUS "Checking for module '${pkg_name}'")
         endif()
-        if(NOT APPLE AND NOT ${prefix}_FOUND)
+        if(APPLE OR NOT ${prefix}_FOUND)
             MESSAGE(STATUS "STILL-NOT-FOUND '${pkg_name}'")
             # try find_path and find_library
             find_path(${prefix}_INCLUDE_DIRS
