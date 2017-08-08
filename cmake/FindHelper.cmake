@@ -23,13 +23,13 @@ macro(FIND_HELPER prefix pkg_name header lib)
             FIND_PACKAGE(PkgConfig)
         endif()
         if(PKG_CONFIG_FOUND)
-            MESSAGE(STATUS "PKG-CONFIG '${pkg_name}'")
             pkg_check_modules(${prefix} ${pkg_name})
         else()
             MESSAGE(STATUS "Checking for module '${pkg_name}'")
         endif()
         if(APPLE OR NOT ${prefix}_FOUND)
-            MESSAGE(STATUS "STILL-NOT-FOUND '${pkg_name}'")
+            MESSAGE(STATUS  " LIBRARIES         ${${prefix}_LIBRARIES}" )
+            MESSAGE(STATUS  " INCLUDE_DIRS      ${${prefix}_INCLUDE_DIRS}" )
             # try find_path and find_library
             find_path(${prefix}_INCLUDE_DIRS
                 NAMES ${header}
